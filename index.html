@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English First Steps — Level A1</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#17575F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="English A1">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF1F0; --side:#DDE6E5; --ink:#15303A; --ink-soft:#48606A;
+  --teal:#17575F; --teal-ink:#F1F7F6; --sea:#A9CBCF;
+  --buoy:#F0B429; --buoy-ink:#3A2B00; --line:#B7C7C8; --field:#FFFFFF;
+  --good:#1E7A4C; --warn:#9A5B00;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#11242B; --side:#0D1D23; --ink:#E6EFEE; --ink-soft:#9DB3B8;
+    --teal:#1B6670; --teal-ink:#F1F7F6; --sea:#356169;
+    --buoy:#F0B429; --buoy-ink:#2B2000; --line:#2B454C; --field:#0B181D;
+    --good:#5CC48F; --warn:#E5B04C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11242B; --side:#0D1D23; --ink:#E6EFEE; --ink-soft:#9DB3B8;
+  --teal:#1B6670; --teal-ink:#F1F7F6; --sea:#356169;
+  --buoy:#F0B429; --buoy-ink:#2B2000; --line:#2B454C; --field:#0B181D;
+  --good:#5CC48F; --warn:#E5B04C;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;font-size:18px;line-height:1.7}
+button,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--buoy);outline-offset:2px}
+.en{font-family:"Bricolage Grotesque","IBM Plex Sans Arabic","Segoe UI",system-ui,sans-serif;text-align:left}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;padding:18px clamp(16px,4vw,40px);border-bottom:1px solid var(--line)}
+.brand h1{margin:0;font-size:26px;line-height:1.2;font-family:"Bricolage Grotesque","IBM Plex Sans Arabic",system-ui,sans-serif;font-weight:700}
+.brand h1 span{display:inline-block;margin-inline-start:10px;padding:1px 10px;border-radius:5px;background:var(--buoy);color:var(--buoy-ink);font-size:16px;vertical-align:middle}
+.brand p{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.tools{margin-inline-start:auto;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;font-size:15px}
+.tools label{display:inline-flex;gap:8px;align-items:center}
+.tools select{background:var(--field);border:1px solid var(--line);border-radius:6px;padding:5px 8px;max-width:210px}
+
+.layout{display:grid;grid-template-columns:310px minmax(0,1fr);max-width:1240px;margin:0 auto}
+nav{background:var(--side);border-inline-end:1px solid var(--line);padding:14px 10px;min-height:calc(100vh - 82px)}
+nav ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.stage-btn{display:grid;grid-template-columns:26px 1fr auto;align-items:center;gap:10px;width:100%;text-align:start;
+  background:none;border:0;border-radius:6px;padding:10px 12px;cursor:pointer}
+.stage-btn:hover{background:color-mix(in srgb,var(--teal) 12%,transparent)}
+.stage-btn[aria-current="true"]{background:var(--teal);color:var(--teal-ink)}
+.stage-btn .n{font-weight:600;font-variant-numeric:tabular-nums}
+.stage-btn .t{font-size:16px;line-height:1.3}
+.stage-btn .p{font-size:13px;opacity:.75;font-variant-numeric:tabular-nums;white-space:nowrap}
+.menu{display:none;border:1.5px solid var(--line);background:var(--field);border-radius:6px;padding:7px 14px;cursor:pointer}
+
+main{padding:clamp(16px,4vw,40px);min-width:0}
+.stage-head .count{margin:0;color:var(--ink-soft);font-size:15px}
+.stage-head h2{margin:2px 0 6px;font-size:clamp(28px,4vw,40px);line-height:1.15;font-weight:700}
+.stage-head .goal{margin:0;font-size:18px}
+.stage-head .fr{margin:2px 0 0;color:var(--ink-soft);font-size:15px;text-align:left}
+.stage-head .ar{margin:2px 0 0;color:var(--ink-soft);font-size:16px;text-align:right}
+
+.strip{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:20px 0 24px}
+.strip i{height:22px;border-radius:2px;border:1.5px solid var(--line);
+  background:repeating-linear-gradient(90deg,transparent 0 5px,color-mix(in srgb,var(--line) 60%,transparent) 5px 6px)}
+.strip i.done{border-color:var(--teal);
+  background:repeating-linear-gradient(90deg,var(--teal) 0 5px,color-mix(in srgb,var(--teal) 68%,#000) 5px 6px)}
+.strip i.now{border:2.5px solid var(--buoy)}
+
+.btn{border:1.5px solid currentColor;background:transparent;border-radius:6px;padding:8px 18px;cursor:pointer;font-weight:500}
+.btn:hover{background:color-mix(in srgb,currentColor 10%,transparent)}
+.btn.primary{background:var(--buoy);color:var(--buoy-ink);border-color:var(--buoy);font-weight:600}
+.btn.primary:hover{background:color-mix(in srgb,var(--buoy) 88%,#000)}
+.btn.big{padding:12px 30px;font-size:19px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn:disabled:hover{background:transparent}
+
+/* French: hidden until asked */
+.frtext,.artext{display:none}
+.showfr .frtext,body.fr-all .frtext{display:block}
+.showar .artext,body.ar-all .artext{display:block}
+.artext{direction:rtl;text-align:right}
+.dots{letter-spacing:3px;opacity:.55}
+body.fr-all .frbtn{display:none}
+body.ar-all .arbtn{display:none}
+
+.say{background:var(--teal);color:var(--teal-ink);border-radius:8px;padding:clamp(18px,3vw,32px)}
+.who{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:15px}
+.who .name{font-weight:600;font-size:18px}
+.line{font-size:clamp(26px,3.6vw,36px);line-height:1.25;font-weight:600;margin:14px 0 8px;transition:filter .2s}
+.line.hidden{filter:blur(10px);user-select:none}
+.say .frtext{margin:0 0 6px;font-size:19px;opacity:.95;text-align:left}
+.say .artext{margin:0 0 6px;font-size:22px;opacity:.95}
+.say-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+.wave{display:inline-flex;gap:3px;align-items:center;height:26px;margin-inline-start:6px}
+.wave i{width:4px;height:6px;border-radius:2px;background:var(--buoy)}
+.wave.on i{animation:bar .8s ease-in-out infinite}
+.wave.on i:nth-child(2){animation-delay:.12s}.wave.on i:nth-child(3){animation-delay:.24s}
+.wave.on i:nth-child(4){animation-delay:.36s}.wave.on i:nth-child(5){animation-delay:.48s}
+@keyframes bar{0%,100%{height:6px}50%{height:24px}}
+.toggles{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;font-size:15px}
+.toggles label{display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+
+/* Word bank */
+.words{margin-top:16px;background:var(--field);border:1px solid var(--line);border-inline-start:6px solid var(--buoy);border-radius:8px;padding:clamp(16px,3vw,26px)}
+.words h3{margin:0;font-size:20px;font-weight:600}
+.words .sub{margin:2px 0 14px;color:var(--ink-soft);font-size:15px}
+.chips{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.chip{display:flex;align-items:stretch;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);overflow:hidden}
+.chip .hear{flex:1;min-width:0;text-align:left;background:none;border:0;padding:10px 12px;cursor:pointer}
+.chip .hear:hover{background:color-mix(in srgb,var(--teal) 10%,transparent)}
+.chip .cw{display:block;font-size:21px;font-weight:600;line-height:1.25}
+.chip .cf{display:block;font-size:15px;color:var(--ink-soft);min-height:1.6em;margin-top:2px}
+.chip .dots{display:block}
+.showfr .chip .dots,.showar .chip .dots,body.fr-all .chip .dots,body.ar-all .chip .dots{display:none}
+.chip .artext{font-size:17px}
+.chip .add{flex:none;width:46px;border:0;border-inline-start:1.5px solid var(--line);
+  background:color-mix(in srgb,var(--buoy) 26%,transparent);font-size:24px;font-weight:700;cursor:pointer}
+.chip .add:hover{background:var(--buoy);color:var(--buoy-ink)}
+
+.reply{margin-top:16px;background:var(--field);border:1px solid var(--line);border-radius:8px;padding:clamp(16px,3vw,26px)}
+.reply h3{margin:0 0 12px;font-size:20px;font-weight:600}
+.mic-row{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+.mic{width:60px;height:60px;flex:none;border-radius:50%;border:0;background:var(--teal);color:var(--teal-ink);display:grid;place-items:center;cursor:pointer}
+.mic:disabled{opacity:.4;cursor:not-allowed}
+.mic.on{background:var(--buoy);color:var(--buoy-ink);animation:ring 1.4s infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(240,180,41,.55)}100%{box-shadow:0 0 0 16px rgba(240,180,41,0)}}
+.mic-state{margin:0;font-size:15px;color:var(--ink-soft)}
+textarea{width:100%;min-height:96px;resize:vertical;background:var(--paper);border:1px solid var(--line);border-radius:6px;
+  padding:12px 14px;font-size:22px;line-height:1.4}
+.hint{margin-top:12px;padding:12px 16px;border-radius:6px;background:color-mix(in srgb,var(--buoy) 16%,transparent);border:1px solid color-mix(in srgb,var(--buoy) 50%,transparent)}
+.hint p{margin:0 0 8px;font-size:22px;line-height:1.35}
+.hint small{display:block;color:var(--ink-soft);font-size:14px;margin-bottom:6px}
+.hint .frtext{font-size:17px;color:var(--ink-soft);text-align:left}
+.hint .artext{font-size:19px;color:var(--ink-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+
+.fb{margin-top:16px;border:1px solid var(--line);border-inline-start:6px solid var(--sea);background:var(--field);border-radius:6px;padding:16px 20px}
+.fb.great{border-inline-start-color:var(--good)}
+.fb.ok{border-inline-start-color:var(--warn)}
+.fb .ttl{margin:0;font-weight:600;font-size:19px}
+.fb .sub{margin:2px 0 10px;color:var(--ink-soft);font-size:15px}
+.fb .model{font-size:24px;line-height:1.4;margin:0 0 4px}
+.fb .lbl{font-size:14px;color:var(--ink-soft);margin:0}
+.fb .frtext{font-size:17px;color:var(--ink-soft);margin:0 0 4px;text-align:left}
+.fb .artext{font-size:19px;color:var(--ink-soft);margin:0 0 4px}
+mark.hit{background:color-mix(in srgb,var(--good) 24%,transparent);color:inherit;border-radius:3px;padding:0 2px}
+
+.log{margin-top:30px}
+.log h3{margin:0 0 10px;font-size:16px;font-weight:500;color:var(--ink-soft)}
+.log ol{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.log li{padding-inline-start:14px;border-inline-start:3px solid var(--sea)}
+.log p{margin:0;font-size:19px;line-height:1.4}
+.log .you{color:var(--ink-soft)}
+
+.intro p{max-width:62ch}
+.intro .who-box{margin:18px 0;padding:14px 18px;border-inline-start:5px solid var(--teal);background:color-mix(in srgb,var(--teal) 9%,transparent);border-radius:4px}
+.intro .who-box b{font-size:19px}
+.intro ol.how{margin:14px 0 20px;padding-inline-start:24px;max-width:62ch}
+.intro ol.how li{margin:6px 0}
+.done-msg{margin:18px 0 6px;font-size:22px;font-weight:600}
+
+.pager{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.pager .btn{font-size:15px;padding:6px 14px}
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr}
+  nav{display:none;min-height:0;border-inline-end:0;border-bottom:1px solid var(--line)}
+  nav.open{display:block}
+  .menu{display:inline-block}
+  .tools{margin-inline-start:0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" class="menu" type="button" aria-expanded="false" aria-controls="stageNav">Dialogues</button>
+  <div class="brand">
+    <h1>English First Steps <span>A1</span></h1>
+    <p>Beginner level. Listen, learn the words, then speak: ten easy dialogues.</p>
+  </div>
+  <div class="tools">
+    <label>Voice
+      <select id="voiceSel" dir="ltr"><option value="">Auto</option></select>
+    </label>
+    <label><input type="checkbox" id="autoPlay" checked> Play audio automatically</label>
+    <label><input type="checkbox" id="frAll"> Always show French</label>
+    <label><input type="checkbox" id="arAll"> Always show Arabic</label>
+  </div>
+</header>
+
+<div class="layout">
+  <nav id="stageNav" aria-label="Dialogues"><ol id="stageList"></ol></nav>
+  <main id="stage"></main>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* Each exchange: [partner line, French, suggested reply, French, [[word, French, Arabic], ...], partner Arabic, reply Arabic] */
+var STAGES = [
+{
+  title:"Hello and goodbye",
+  goal:"Say hello, ask how someone is, and say goodbye.",
+  fr:"Dire bonjour, demander comment ça va, et dire au revoir.",
+  goalAr:"قل مرحبًا، واسأل عن الحال، وودّع.",
+  who:{"name":"Emma","role":"Your English friend"},
+  ex:[
+    ["Hello!","Bonjour !","Hello! Good morning.","Bonjour ! Bonjour (le matin).",[["Hello","Bonjour / Salut","مرحبًا"],["Good morning","Bonjour (le matin)","صباح الخير"]],"مرحبًا!","مرحبًا! صباح الخير."],
+    ["Good morning! How are you?","Bonjour ! Comment vas-tu ?","I am fine, thank you. And you?","Je vais bien, merci. Et toi ?",[["I am fine","Je vais bien","أنا بخير"],["thank you","merci","شكرًا"],["And you?","Et toi ?","وأنت؟"]],"صباح الخير! كيف حالك؟","أنا بخير، شكرًا. وأنت؟"],
+    ["I am good too. Nice to see you.","Je vais bien aussi. Content de te voir.","Nice to see you too.","Content de te voir aussi.",[["Nice to see you","Content de te voir","سعيد برؤيتك"],["too","aussi","أيضًا"]],"أنا بخير أيضًا. سعيد برؤيتك.","سعيد برؤيتك أيضًا."],
+    ["It is a nice day today, yes?","C'est une belle journée aujourd'hui, non ?","Yes, it is a nice day.","Oui, c'est une belle journée.",[["Yes","Oui","نعم"],["it is","c'est","إنه"],["a nice day","une belle journée","يوم جميل"]],"إنه يوم جميل اليوم، أليس كذلك؟","نعم، إنه يوم جميل."],
+    ["Are you tired?","Es-tu fatigué ?","No, I am not tired.","Non, je ne suis pas fatigué.",[["No","Non","لا"],["I am not","je ne suis pas","أنا لست"],["tired","fatigué","متعب"]],"هل أنت متعب؟","لا، أنا لست متعبًا."],
+    ["Are you happy today?","Es-tu content aujourd'hui ?","Yes, I am very happy.","Oui, je suis très content.",[["Yes, I am","Oui, je suis","نعم، أنا"],["very","très","جدًا"],["happy","content","سعيد"]],"هل أنت سعيد اليوم؟","نعم، أنا سعيد جدًا."],
+    ["Please, sit here.","Assieds-toi ici, s'il te plaît.","Thank you very much.","Merci beaucoup.",[["Thank you","Merci","شكرًا"],["very much","beaucoup","جزيلًا"]],"تفضّل بالجلوس هنا، من فضلك.","شكرًا جزيلًا."],
+    ["Do you want some water?","Veux-tu de l'eau ?","Yes, please.","Oui, s'il te plaît.",[["Yes","Oui","نعم"],["please","s'il te plaît","من فضلك"]],"هل تريد بعض الماء؟","نعم، من فضلك."],
+    ["Here you are.","Voilà.","Thank you. You are kind.","Merci. Tu es gentil.",[["Thank you","Merci","شكرًا"],["You are","Tu es","أنت"],["kind","gentil","لطيف"]],"تفضّل.","شكرًا. أنت لطيف."],
+    ["I must go now. Goodbye!","Je dois partir maintenant. Au revoir !","Goodbye! See you tomorrow.","Au revoir ! À demain.",[["Goodbye","Au revoir","مع السلامة"],["See you tomorrow","À demain","أراك غدًا"]],"يجب أن أذهب الآن. مع السلامة!","مع السلامة! أراك غدًا."]
+  ]
+},
+{
+  title:"My name",
+  goal:"Say your name, spell it, and be polite.",
+  fr:"Dire ton nom, l'épeler, et être poli.",
+  goalAr:"قل اسمك، وتهجّه، وكن مهذبًا.",
+  who:{"name":"Sara","role":"A new friend"},
+  ex:[
+    ["Hello! What is your name?","Bonjour ! Comment t'appelles-tu ?","My name is Yassine.","Je m'appelle Yassine.",[["My name is","Je m'appelle","اسمي"],["Yassine","Yassine","ياسين"]],"مرحبًا! ما اسمك؟","اسمي ياسين."],
+    ["Nice to meet you, Yassine. I am Sara.","Enchantée, Yassine. Je suis Sara.","Nice to meet you, Sara.","Enchanté, Sara.",[["Nice to meet you","Enchanté","تشرفنا"],["Sara","Sara","سارة"]],"تشرفنا يا ياسين. أنا سارة.","تشرفنا يا سارة."],
+    ["How do you spell Yassine?","Comment épelle-t-on Yassine ?","It is Y, A, S, S, I, N, E.","C'est Y, A, S, S, I, N, E.",[["It is","C'est","إنه"],["Y, A, S, S, I, N, E","(les lettres du prénom)","(حروف الاسم)"]],"كيف تتهجّى ياسين؟","إنه Y, A, S, S, I, N, E."],
+    ["Is Yassine your first name?","Est-ce que Yassine est ton prénom ?","Yes, it is my first name.","Oui, c'est mon prénom.",[["Yes","Oui","نعم"],["it is","c'est","إنه"],["my first name","mon prénom","اسمي الأول"]],"هل ياسين هو اسمك الأول؟","نعم، إنه اسمي الأول."],
+    ["And what is your last name?","Et quel est ton nom de famille ?","My last name is Ait Taleb.","Mon nom de famille est Ait Taleb.",[["My last name is","Mon nom de famille est","اسم عائلتي"],["Ait Taleb","Ait Taleb","آيت طالب"]],"وما هو اسم عائلتك؟","اسم عائلتي آيت طالب."],
+    ["Are you a student?","Es-tu étudiant ?","Yes, I am a student.","Oui, je suis étudiant.",[["Yes, I am","Oui, je suis","نعم، أنا"],["a student","un étudiant","طالب"]],"هل أنت طالب؟","نعم، أنا طالب."],
+    ["Oh, sorry! I am late.","Oh, pardon ! Je suis en retard.","It is OK. No problem.","C'est bon. Pas de problème.",[["It is OK","C'est bon","لا بأس"],["No problem","Pas de problème","لا مشكلة"]],"آه، آسفة! أنا متأخرة.","لا بأس. لا مشكلة."],
+    ["Please, come in.","Entre, s'il te plaît.","Thank you. It is a nice room.","Merci. C'est une belle pièce.",[["Thank you","Merci","شكرًا"],["It is","C'est","إنها"],["a nice room","une belle pièce","غرفة جميلة"]],"تفضّل بالدخول، من فضلك.","شكرًا. إنها غرفة جميلة."],
+    ["Do you speak English?","Parles-tu anglais ?","A little. I am learning English.","Un peu. J'apprends l'anglais.",[["A little","Un peu","قليلًا"],["I am learning","J'apprends","أنا أتعلّم"],["English","l'anglais","الإنجليزية"]],"هل تتكلم الإنجليزية؟","قليلًا. أنا أتعلّم الإنجليزية."],
+    ["Very good! See you soon, Yassine.","Très bien ! À bientôt, Yassine.","Thank you, Sara. See you soon.","Merci, Sara. À bientôt.",[["Thank you","Merci","شكرًا"],["See you soon","À bientôt","أراك قريبًا"]],"جيد جدًا! أراك قريبًا يا ياسين.","شكرًا يا سارة. أراك قريبًا."]
+  ]
+},
+{
+  title:"Where are you from?",
+  goal:"Say your country, your city, and your languages.",
+  fr:"Dire ton pays, ta ville et tes langues.",
+  goalAr:"قل بلدك ومدينتك ولغاتك.",
+  who:{"name":"Alex","role":"A traveler"},
+  ex:[
+    ["Where are you from?","D'où viens-tu ?","I am from Morocco.","Je viens du Maroc.",[["I am from","Je viens de","أنا من"],["Morocco","Maroc","المغرب"]],"من أين أنت؟","أنا من المغرب."],
+    ["Morocco! It is a beautiful country.","Le Maroc ! C'est un beau pays.","Thank you. I love my country.","Merci. J'aime mon pays.",[["Thank you","Merci","شكرًا"],["I love","J'aime","أنا أحب"],["my country","mon pays","بلدي"]],"المغرب! إنه بلد جميل.","شكرًا. أنا أحب بلدي."],
+    ["Which city do you live in?","Dans quelle ville habites-tu ?","I live in Taroudant.","J'habite à Taroudant.",[["I live in","J'habite à","أنا أسكن في"],["Taroudant","Taroudant","تارودانت"]],"في أي مدينة تسكن؟","أنا أسكن في تارودانت."],
+    ["Is Taroudant big or small?","Taroudant est-elle grande ou petite ?","It is small, but it is beautiful.","Elle est petite, mais elle est belle.",[["It is small","Elle est petite","إنها صغيرة"],["but","mais","لكن"],["beautiful","belle","جميلة"]],"هل تارودانت كبيرة أم صغيرة؟","إنها صغيرة، لكنها جميلة."],
+    ["Is it hot there?","Fait-il chaud là-bas ?","Yes, it is very hot in summer.","Oui, il fait très chaud en été.",[["Yes","Oui","نعم"],["very hot","très chaud","حار جدًا"],["in summer","en été","في الصيف"]],"هل الجو حار هناك؟","نعم، الجو حار جدًا في الصيف."],
+    ["What languages do you speak?","Quelles langues parles-tu ?","I speak Arabic and French.","Je parle arabe et français.",[["I speak","Je parle","أنا أتكلم"],["Arabic","arabe","العربية"],["and","et","و"],["French","français","الفرنسية"]],"ما اللغات التي تتكلمها؟","أنا أتكلم العربية والفرنسية."],
+    ["Is French easy for you?","Le français est-il facile pour toi ?","Yes, it is easy for me.","Oui, c'est facile pour moi.",[["Yes","Oui","نعم"],["easy","facile","سهلة"],["for me","pour moi","بالنسبة لي"]],"هل الفرنسية سهلة بالنسبة لك؟","نعم، إنها سهلة بالنسبة لي."],
+    ["And English? Is it easy?","Et l'anglais ? Est-ce facile ?","No, it is difficult, but I like it.","Non, c'est difficile, mais je l'aime bien.",[["No","Non","لا"],["difficult","difficile","صعبة"],["but","mais","لكن"],["I like it","je l'aime bien","أحبها"]],"والإنجليزية؟ هل هي سهلة؟","لا، إنها صعبة، لكنني أحبها."],
+    ["Do not worry. You speak well!","Ne t'inquiète pas. Tu parles bien !","Thank you. I practice every day.","Merci. Je m'entraîne tous les jours.",[["Thank you","Merci","شكرًا"],["I practice","je m'entraîne","أنا أتدرّب"],["every day","tous les jours","كل يوم"]],"لا تقلق. أنت تتكلم جيدًا!","شكرًا. أنا أتدرّب كل يوم."],
+    ["Good! Where do you want to travel?","Bien ! Où veux-tu voyager ?","I want to travel to England.","Je veux voyager en Angleterre.",[["I want to travel","Je veux voyager","أريد أن أسافر"],["to England","en Angleterre","إلى إنجلترا"]],"جيد! إلى أين تريد أن تسافر؟","أريد أن أسافر إلى إنجلترا."]
+  ]
+},
+{
+  title:"Numbers and age",
+  goal:"Say numbers, your age, and your phone number.",
+  fr:"Dire les nombres, ton âge et ton numéro de téléphone.",
+  goalAr:"قل الأرقام وعمرك ورقم هاتفك.",
+  who:{"name":"Nadia","role":"Your teacher"},
+  ex:[
+    ["Can you count to five?","Peux-tu compter jusqu'à cinq ?","One, two, three, four, five.","Un, deux, trois, quatre, cinq.",[["One, two, three","un, deux, trois","واحد، اثنان، ثلاثة"],["four, five","quatre, cinq","أربعة، خمسة"]],"هل تستطيع العدّ حتى خمسة؟","واحد، اثنان، ثلاثة، أربعة، خمسة."],
+    ["Very good! Now, six to ten.","Très bien ! Maintenant, de six à dix.","Six, seven, eight, nine, ten.","Six, sept, huit, neuf, dix.",[["Six, seven, eight","six, sept, huit","ستة، سبعة، ثمانية"],["nine, ten","neuf, dix","تسعة، عشرة"]],"جيد جدًا! الآن، من ستة إلى عشرة.","ستة، سبعة، ثمانية، تسعة، عشرة."],
+    ["How old are you?","Quel âge as-tu ?","I am twenty-five years old.","J'ai vingt-cinq ans.",[["I am","J'ai (pour l'âge)","عمري"],["twenty-five","vingt-cinq","خمس وعشرون"],["years old","ans","سنة"]],"كم عمرك؟","عمري خمس وعشرون سنة."],
+    ["What is your phone number?","Quel est ton numéro de téléphone ?","My number is zero six, one two, three four.","Mon numéro est zéro six, un deux, trois quatre.",[["My number is","Mon numéro est","رقمي هو"],["zero six","zéro six","صفر ستة"],["one two","un deux","واحد اثنان"],["three four","trois quatre","ثلاثة أربعة"]],"ما هو رقم هاتفك؟","رقمي هو صفر ستة، واحد اثنان، ثلاثة أربعة."],
+    ["Let me repeat: zero six, one two, three four. Correct?","Je répète : zéro six, un deux, trois quatre. C'est correct ?","Yes, that is correct.","Oui, c'est correct.",[["Yes","Oui","نعم"],["that is correct","c'est correct","هذا صحيح"]],"دعني أكرّر: صفر ستة، واحد اثنان، ثلاثة أربعة. هل هذا صحيح؟","نعم، هذا صحيح."],
+    ["How many pens do you have?","Combien de stylos as-tu ?","I have two pens.","J'ai deux stylos.",[["I have","J'ai","عندي"],["two","deux","اثنان"],["pens","stylos","أقلام"]],"كم قلمًا عندك؟","عندي قلمان."],
+    ["And how many bags?","Et combien de sacs ?","I have one bag.","J'ai un sac.",[["I have","J'ai","عندي"],["one","un","واحدة"],["bag","sac","حقيبة"]],"وكم حقيبة؟","عندي حقيبة واحدة."],
+    ["What is your house number?","Quel est le numéro de ta maison ?","My house number is twelve.","Le numéro de ma maison est douze.",[["My house number is","Le numéro de ma maison est","رقم منزلي"],["twelve","douze","اثنا عشر"]],"ما هو رقم منزلك؟","رقم منزلي اثنا عشر."],
+    ["Which is bigger: ten or twenty?","Lequel est plus grand : dix ou vingt ?","Twenty is bigger.","Vingt est plus grand.",[["Twenty","Vingt","عشرون"],["is bigger","est plus grand","أكبر"]],"أيهما أكبر: عشرة أم عشرون؟","عشرون أكبر."],
+    ["Great! You know numbers now.","Bravo ! Tu connais les nombres maintenant.","Thank you. Numbers are easy!","Merci. Les nombres sont faciles !",[["Thank you","Merci","شكرًا"],["Numbers","Les nombres","الأرقام"],["are easy","sont faciles","سهلة"]],"رائع! أنت تعرف الأرقام الآن.","شكرًا. الأرقام سهلة!"]
+  ]
+},
+{
+  title:"My family",
+  goal:"Talk about your mother, father, brothers, and sisters.",
+  fr:"Parler de ta mère, ton père, tes frères et sœurs.",
+  goalAr:"تحدّث عن أمك وأبيك وإخوتك وأخواتك.",
+  who:{"name":"Julie","role":"A friend"},
+  ex:[
+    ["Tell me about your family. Is it big?","Parle-moi de ta famille. Est-elle grande ?","Yes, I have a big family.","Oui, j'ai une grande famille.",[["Yes","Oui","نعم"],["I have","J'ai","عندي"],["a big family","une grande famille","عائلة كبيرة"]],"حدّثني عن عائلتك. هل هي كبيرة؟","نعم، عندي عائلة كبيرة."],
+    ["Who lives in your house?","Qui habite dans ta maison ?","My mother and my father.","Ma mère et mon père.",[["My mother","Ma mère","أمي"],["and","et","و"],["my father","mon père","أبي"]],"من يسكن في منزلك؟","أمي وأبي."],
+    ["Do you have a brother?","As-tu un frère ?","Yes, I have one brother.","Oui, j'ai un frère.",[["Yes, I have","Oui, j'ai","نعم، عندي"],["one brother","un frère","أخ واحد"]],"هل عندك أخ؟","نعم، عندي أخ واحد."],
+    ["And a sister?","Et une sœur ?","Yes, I have two sisters.","Oui, j'ai deux sœurs.",[["Yes, I have","Oui, j'ai","نعم، عندي"],["two sisters","deux sœurs","أختان"]],"وأخت؟","نعم، عندي أختان."],
+    ["Is your mother kind?","Ta mère est-elle gentille ?","Yes, she is very kind.","Oui, elle est très gentille.",[["Yes","Oui","نعم"],["she is","elle est","هي"],["very kind","très gentille","لطيفة جدًا"]],"هل أمك لطيفة؟","نعم، هي لطيفة جدًا."],
+    ["What does your father do?","Que fait ton père ?","He works every day.","Il travaille tous les jours.",[["He works","Il travaille","هو يعمل"],["every day","tous les jours","كل يوم"]],"ماذا يعمل والدك؟","هو يعمل كل يوم."],
+    ["Is your brother older or younger?","Ton frère est-il plus âgé ou plus jeune ?","He is younger than me.","Il est plus jeune que moi.",[["He is","Il est","هو"],["younger","plus jeune","أصغر"],["than me","que moi","مني"]],"هل أخوك أكبر أم أصغر؟","هو أصغر مني."],
+    ["Do you love your family?","Aimes-tu ta famille ?","Yes, I love my family very much.","Oui, j'aime beaucoup ma famille.",[["Yes","Oui","نعم"],["I love","J'aime","أحب"],["my family","ma famille","عائلتي"],["very much","beaucoup","كثيرًا"]],"هل تحب عائلتك؟","نعم، أحب عائلتي كثيرًا."],
+    ["What do you do together on Sunday?","Que faites-vous ensemble le dimanche ?","We eat lunch together.","Nous déjeunons ensemble.",[["We eat","Nous mangeons","نأكل"],["lunch","le déjeuner","الغداء"],["together","ensemble","معًا"]],"ماذا تفعلون معًا يوم الأحد؟","نتناول الغداء معًا."],
+    ["That is nice. Family is important.","C'est bien. La famille est importante.","Yes, family is very important.","Oui, la famille est très importante.",[["Yes","Oui","نعم"],["family","la famille","العائلة"],["is very important","est très importante","مهمة جدًا"]],"هذا جميل. العائلة مهمة.","نعم، العائلة مهمة جدًا."]
+  ]
+},
+{
+  title:"Food and drink",
+  goal:"Order water, tea, coffee, and bread at a café.",
+  fr:"Commander de l'eau, du thé, du café et du pain dans un café.",
+  goalAr:"اطلب الماء والشاي والقهوة والخبز في مقهى.",
+  who:{"name":"Marco","role":"Waiter at a café"},
+  ex:[
+    ["Welcome! What do you want to drink?","Bienvenue ! Que veux-tu boire ?","I want tea, please.","Je veux du thé, s'il vous plaît.",[["I want","Je veux","أريد"],["tea","du thé","شاي"],["please","s'il vous plaît","من فضلك"]],"أهلًا بك! ماذا تريد أن تشرب؟","أريد شايًا، من فضلك."],
+    ["Hot tea or cold tea?","Thé chaud ou thé froid ?","Hot tea, please.","Du thé chaud, s'il vous plaît.",[["Hot tea","Du thé chaud","شاي ساخن"],["please","s'il vous plaît","من فضلك"]],"شاي ساخن أم شاي بارد؟","شاي ساخن، من فضلك."],
+    ["With sugar?","Avec du sucre ?","No sugar, thank you.","Sans sucre, merci.",[["No sugar","Sans sucre","بدون سكر"],["thank you","merci","شكرًا"]],"مع سكر؟","بدون سكر، شكرًا."],
+    ["Do you want something to eat?","Veux-tu manger quelque chose ?","Yes, I want bread and cheese.","Oui, je veux du pain et du fromage.",[["Yes","Oui","نعم"],["I want","Je veux","أريد"],["bread","du pain","خبز"],["cheese","du fromage","جبن"]],"هل تريد شيئًا لتأكله؟","نعم، أريد خبزًا وجبنًا."],
+    ["Do you like eggs?","Aimes-tu les œufs ?","Yes, I like eggs.","Oui, j'aime les œufs.",[["Yes","Oui","نعم"],["I like","J'aime","أحب"],["eggs","les œufs","البيض"]],"هل تحب البيض؟","نعم، أحب البيض."],
+    ["What food do you not like?","Quelle nourriture n'aimes-tu pas ?","I do not like onions.","Je n'aime pas les oignons.",[["I do not like","Je n'aime pas","لا أحب"],["onions","les oignons","البصل"]],"ما الطعام الذي لا تحبه؟","لا أحب البصل."],
+    ["Here is your tea and bread.","Voici ton thé et ton pain.","Thank you. It looks good.","Merci. Ça a l'air bon.",[["Thank you","Merci","شكرًا"],["It looks good","Ça a l'air bon","يبدو لذيذًا"]],"تفضّل شايك وخبزك.","شكرًا. يبدو لذيذًا."],
+    ["Is everything OK?","Tout est bien ?","Yes, the tea is very good.","Oui, le thé est très bon.",[["Yes","Oui","نعم"],["the tea","le thé","الشاي"],["is very good","est très bon","جيد جدًا"]],"هل كل شيء على ما يرام؟","نعم، الشاي جيد جدًا."],
+    ["Do you want more water?","Veux-tu plus d'eau ?","Yes, a glass of water, please.","Oui, un verre d'eau, s'il vous plaît.",[["Yes","Oui","نعم"],["a glass of water","un verre d'eau","كأس ماء"],["please","s'il vous plaît","من فضلك"]],"هل تريد المزيد من الماء؟","نعم، كأس ماء، من فضلك."],
+    ["Do you want the bill?","Veux-tu l'addition ?","Yes, the bill, please.","Oui, l'addition, s'il vous plaît.",[["Yes","Oui","نعم"],["the bill","l'addition","الفاتورة"],["please","s'il vous plaît","من فضلك"]],"هل تريد الفاتورة؟","نعم، الفاتورة، من فضلك."]
+  ]
+},
+{
+  title:"At the shop",
+  goal:"Ask for fruit, ask the price, and pay.",
+  fr:"Demander des fruits, demander le prix, et payer.",
+  goalAr:"اطلب الفاكهة، واسأل عن الثمن، وادفع.",
+  who:{"name":"Mr. Ali","role":"Shop owner"},
+  ex:[
+    ["Good morning. Can I help you?","Bonjour. Puis-je vous aider ?","Yes, I want to buy oranges.","Oui, je veux acheter des oranges.",[["Yes","Oui","نعم"],["I want to buy","Je veux acheter","أريد أن أشتري"],["oranges","des oranges","برتقال"]],"صباح الخير. هل أستطيع مساعدتك؟","نعم، أريد أن أشتري برتقالًا."],
+    ["How many kilos?","Combien de kilos ?","Two kilos, please.","Deux kilos, s'il vous plaît.",[["Two kilos","Deux kilos","كيلوغرامان"],["please","s'il vous plaît","من فضلك"]],"كم كيلوغرامًا؟","كيلوغرامان، من فضلك."],
+    ["Here you are. Anything else?","Voilà. Autre chose ?","Yes, I want apples too.","Oui, je veux aussi des pommes.",[["Yes","Oui","نعم"],["I want","Je veux","أريد"],["apples","des pommes","تفاح"],["too","aussi","أيضًا"]],"تفضّل. هل تريد شيئًا آخر؟","نعم، أريد تفاحًا أيضًا."],
+    ["Red apples or green apples?","Des pommes rouges ou vertes ?","Red apples, please.","Des pommes rouges, s'il vous plaît.",[["Red apples","Des pommes rouges","تفاح أحمر"],["please","s'il vous plaît","من فضلك"]],"تفاح أحمر أم تفاح أخضر؟","تفاح أحمر، من فضلك."],
+    ["OK. Do you want a bag?","D'accord. Voulez-vous un sac ?","Yes, one bag, please.","Oui, un sac, s'il vous plaît.",[["Yes","Oui","نعم"],["one bag","un sac","كيس واحد"],["please","s'il vous plaît","من فضلك"]],"حسنًا. هل تريد كيسًا؟","نعم، كيس واحد، من فضلك."],
+    ["Is that all?","C'est tout ?","Yes, that is all. How much is it?","Oui, c'est tout. C'est combien ?",[["that is all","c'est tout","هذا كل شيء"],["How much is it?","C'est combien ?","بكم هو؟"]],"هل هذا كل شيء؟","نعم، هذا كل شيء. بكم هو؟"],
+    ["It is thirty-five dirhams.","Ça fait trente-cinq dirhams.","OK. Here is fifty dirhams.","D'accord. Voici cinquante dirhams.",[["OK","D'accord","حسنًا"],["Here is","Voici","تفضّل"],["fifty dirhams","cinquante dirhams","خمسون درهمًا"]],"الثمن خمسة وثلاثون درهمًا.","حسنًا. تفضّل خمسين درهمًا."],
+    ["Here is your change: fifteen dirhams.","Voici votre monnaie : quinze dirhams.","Thank you. The fruit looks fresh.","Merci. Les fruits ont l'air frais.",[["Thank you","Merci","شكرًا"],["The fruit","Les fruits","الفاكهة"],["looks fresh","a l'air frais","تبدو طازجة"]],"تفضّل الباقي: خمسة عشر درهمًا.","شكرًا. الفاكهة تبدو طازجة."],
+    ["Yes, it is from my farm.","Oui, ça vient de ma ferme.","That is great. I will come again.","C'est super. Je reviendrai.",[["That is great","C'est super","هذا رائع"],["I will come again","Je reviendrai","سآتي مرة أخرى"]],"نعم، إنها من مزرعتي.","هذا رائع. سآتي مرة أخرى."],
+    ["You are welcome. Have a good day!","Avec plaisir. Bonne journée !","You too. Goodbye!","Vous aussi. Au revoir !",[["You too","Vous aussi","وأنت كذلك"],["Goodbye","Au revoir","مع السلامة"]],"عفوًا. أتمنى لك يومًا سعيدًا!","وأنت كذلك. مع السلامة!"]
+  ]
+},
+{
+  title:"Time and days",
+  goal:"Say the day, the time, and your daily plans.",
+  fr:"Dire le jour, l'heure et ta journée.",
+  goalAr:"قل اليوم والساعة وبرنامج يومك.",
+  who:{"name":"Anna","role":"A classmate"},
+  ex:[
+    ["What day is it today?","Quel jour sommes-nous aujourd'hui ?","Today is Saturday.","Aujourd'hui, c'est samedi.",[["Today is","Aujourd'hui c'est","اليوم هو"],["Saturday","samedi","السبت"]],"أي يوم اليوم؟","اليوم هو السبت."],
+    ["And tomorrow?","Et demain ?","Tomorrow is Sunday.","Demain, c'est dimanche.",[["Tomorrow is","Demain c'est","غدًا هو"],["Sunday","dimanche","الأحد"]],"وغدًا؟","غدًا هو الأحد."],
+    ["What time is it now?","Quelle heure est-il maintenant ?","It is ten o'clock.","Il est dix heures.",[["It is","Il est","الساعة"],["ten o'clock","dix heures","العاشرة"]],"كم الساعة الآن؟","الساعة العاشرة."],
+    ["What time do you wake up?","À quelle heure te réveilles-tu ?","I wake up at seven.","Je me réveille à sept heures.",[["I wake up","Je me réveille","أستيقظ"],["at seven","à sept heures","في الساعة السابعة"]],"في أي ساعة تستيقظ؟","أستيقظ في الساعة السابعة."],
+    ["What do you eat in the morning?","Que manges-tu le matin ?","I eat bread and drink tea.","Je mange du pain et je bois du thé.",[["I eat","Je mange","آكل"],["bread","du pain","الخبز"],["drink","boire","أشرب"],["tea","du thé","الشاي"]],"ماذا تأكل في الصباح؟","آكل الخبز وأشرب الشاي."],
+    ["What time do you go to work?","À quelle heure vas-tu au travail ?","I go to work at eight.","Je vais au travail à huit heures.",[["I go to work","Je vais au travail","أذهب إلى العمل"],["at eight","à huit heures","في الساعة الثامنة"]],"في أي ساعة تذهب إلى العمل؟","أذهب إلى العمل في الساعة الثامنة."],
+    ["When do you have lunch?","Quand déjeunes-tu ?","I have lunch at noon.","Je déjeune à midi.",[["I have lunch","Je déjeune","أتناول الغداء"],["at noon","à midi","عند الظهر"]],"متى تتناول الغداء؟","أتناول الغداء عند الظهر."],
+    ["What do you do in the evening?","Que fais-tu le soir ?","I study English.","J'étudie l'anglais.",[["I study","J'étudie","أدرس"],["English","l'anglais","الإنجليزية"]],"ماذا تفعل في المساء؟","أدرس الإنجليزية."],
+    ["Do you work on Sunday?","Travailles-tu le dimanche ?","No, I rest on Sunday.","Non, je me repose le dimanche.",[["No","Non","لا"],["I rest","Je me repose","أرتاح"],["on Sunday","le dimanche","يوم الأحد"]],"هل تعمل يوم الأحد؟","لا، أرتاح يوم الأحد."],
+    ["Good. See you on Monday!","Bien. À lundi !","OK, see you on Monday.","D'accord, à lundi.",[["OK","D'accord","حسنًا"],["see you on Monday","à lundi","أراك يوم الاثنين"]],"جيد. أراك يوم الاثنين!","حسنًا، أراك يوم الاثنين."]
+  ]
+},
+{
+  title:"My job",
+  goal:"Say what you study, and talk about your office.",
+  fr:"Dire ce que tu étudies, et parler de ton bureau.",
+  goalAr:"قل ماذا تدرس، وتحدّث عن مكتبك.",
+  who:{"name":"Mr. Benson","role":"Office manager"},
+  ex:[
+    ["Hello. Are you a student, or do you work?","Bonjour. Es-tu étudiant, ou travailles-tu ?","I am a student.","Je suis étudiant.",[["I am","Je suis","أنا"],["a student","un étudiant","طالب"]],"مرحبًا. هل أنت طالب أم تعمل؟","أنا طالب."],
+    ["What do you study?","Qu'étudies-tu ?","I study trade.","J'étudie le commerce.",[["I study","J'étudie","أدرس"],["trade","le commerce","التجارة"]],"ماذا تدرس؟","أدرس التجارة."],
+    ["Do you like it?","Est-ce que tu aimes ça ?","Yes, I like it a lot.","Oui, j'aime beaucoup ça.",[["Yes","Oui","نعم"],["I like it","je l'aime bien","أحبه"],["a lot","beaucoup","كثيرًا"]],"هل تحبه؟","نعم، أحبه كثيرًا."],
+    ["Where do you want to work?","Où veux-tu travailler ?","I want to work in a company.","Je veux travailler dans une entreprise.",[["I want to work","Je veux travailler","أريد أن أعمل"],["in a company","dans une entreprise","في شركة"]],"أين تريد أن تعمل؟","أريد أن أعمل في شركة."],
+    ["This is our office. Do you like it?","Voici notre bureau. Tu l'aimes ?","Yes, it is a nice office.","Oui, c'est un beau bureau.",[["Yes","Oui","نعم"],["it is","c'est","إنه"],["a nice office","un beau bureau","مكتب جميل"]],"هذا مكتبنا. هل يعجبك؟","نعم، إنه مكتب جميل."],
+    ["This is your desk and your computer.","Voici ton bureau et ton ordinateur.","Thank you. Where is the phone?","Merci. Où est le téléphone ?",[["Thank you","Merci","شكرًا"],["Where is","Où est","أين"],["the phone","le téléphone","الهاتف"]],"هذا مكتبك وحاسوبك.","شكرًا. أين الهاتف؟"],
+    ["The phone is on the desk.","Le téléphone est sur le bureau.","I see it. Thank you.","Je le vois. Merci.",[["I see it","Je le vois","أراه"],["Thank you","Merci","شكرًا"]],"الهاتف على المكتب.","أراه. شكرًا."],
+    ["Do you use a computer?","Utilises-tu un ordinateur ?","Yes, I use a computer every day.","Oui, j'utilise un ordinateur tous les jours.",[["Yes","Oui","نعم"],["I use","J'utilise","أستخدم"],["a computer","un ordinateur","الحاسوب"],["every day","tous les jours","كل يوم"]],"هل تستخدم الحاسوب؟","نعم، أستخدم الحاسوب كل يوم."],
+    ["Work starts at eight. Is that OK?","Le travail commence à huit heures. Ça va ?","Yes, that is OK for me.","Oui, ça me convient.",[["Yes","Oui","نعم"],["that is OK","ça va","هذا مناسب"],["for me","pour moi","لي"]],"يبدأ العمل في الثامنة. هل هذا مناسب؟","نعم، هذا مناسب لي."],
+    ["Welcome to the team!","Bienvenue dans l'équipe !","Thank you. I am happy to be here.","Merci. Je suis content d'être ici.",[["Thank you","Merci","شكرًا"],["I am happy","Je suis content","أنا سعيد"],["to be here","d'être ici","بوجودي هنا"]],"أهلًا بك في الفريق!","شكرًا. أنا سعيد بوجودي هنا."]
+  ]
+},
+{
+  title:"I do not understand",
+  goal:"Ask people to repeat, to speak slowly, and to help you.",
+  fr:"Demander de répéter, de parler lentement, et de l'aide.",
+  goalAr:"اطلب من الناس أن يعيدوا، وأن يتكلموا ببطء، وأن يساعدوك.",
+  who:{"name":"Lisa","role":"English teacher"},
+  ex:[
+    ["Good morning. Open your books, please.","Bonjour. Ouvrez vos livres, s'il vous plaît.","Sorry, I do not understand.","Désolé, je ne comprends pas.",[["Sorry","Désolé","آسف"],["I do not understand","Je ne comprends pas","لا أفهم"]],"صباح الخير. افتحوا كتبكم، من فضلكم.","آسف، لا أفهم."],
+    ["Oh, I am sorry. Open your books, please.","Oh, désolée. Ouvrez vos livres, s'il vous plaît.","Please speak slowly.","Parlez lentement, s'il vous plaît.",[["Please","S'il vous plaît","من فضلك"],["speak slowly","parlez lentement","تكلّمي ببطء"]],"آه، أنا آسفة. افتحوا كتبكم، من فضلكم.","تكلّمي ببطء، من فضلك."],
+    ["Open... your... books.","Ouvrez... vos... livres.","Ah, I understand. Thank you.","Ah, je comprends. Merci.",[["Ah","Ah","آه"],["I understand","Je comprends","فهمت"],["Thank you","Merci","شكرًا"]],"افتحوا... كتبكم...","آه، فهمت. شكرًا."],
+    ["Now, look at page ten.","Maintenant, regardez la page dix.","Which page, please?","Quelle page, s'il vous plaît ?",[["Which page","Quelle page","أي صفحة"],["please","s'il vous plaît","من فضلك"]],"الآن، انظروا إلى الصفحة عشرة.","أي صفحة، من فضلك؟"],
+    ["Page ten.","Page dix.","Yes, page ten. I see it.","Oui, page dix. Je la vois.",[["Yes","Oui","نعم"],["page ten","page dix","الصفحة عشرة"],["I see it","Je la vois","أراها"]],"الصفحة عشرة.","نعم، الصفحة عشرة. أراها."],
+    ["Read the first line.","Lisez la première ligne.","I do not know this word.","Je ne connais pas ce mot.",[["I do not know","Je ne connais pas","لا أعرف"],["this word","ce mot","هذه الكلمة"]],"اقرأوا السطر الأول.","لا أعرف هذه الكلمة."],
+    ["That word is welcome.","Ce mot est « welcome ».","What does welcome mean?","Que veut dire « welcome » ?",[["What does","Que veut","ماذا"],["welcome","bienvenue","أهلًا وسهلًا"],["mean","dire","تعني"]],"هذه الكلمة هي welcome.","ماذا تعني كلمة welcome؟"],
+    ["It means bienvenue in French.","Ça veut dire « bienvenue » en français.","Ah, thank you. Can you write it?","Ah, merci. Peux-tu l'écrire ?",[["Ah, thank you","Ah, merci","آه، شكرًا"],["Can you write it","Peux-tu l'écrire","هل تستطيعين كتابتها"]],"تعني bienvenue بالفرنسية.","آه، شكرًا. هل تستطيعين كتابتها؟"],
+    ["Yes, I write it on the board.","Oui, je l'écris au tableau.","Thank you for your help.","Merci pour ton aide.",[["Thank you for","Merci pour","شكرًا على"],["your help","ton aide","مساعدتك"]],"نعم، أكتبها على السبورة.","شكرًا على مساعدتك."],
+    ["You speak English very well!","Tu parles très bien anglais !","Thank you. I am learning every day.","Merci. J'apprends tous les jours.",[["Thank you","Merci","شكرًا"],["I am learning","J'apprends","أنا أتعلّم"],["every day","tous les jours","كل يوم"]],"أنت تتكلم الإنجليزية جيدًا جدًا!","شكرًا. أنا أتعلّم كل يوم."]
+  ]
+}
+];
+
+
+/* ---------- Helpers ---------- */
+var $ = function(s){ return document.querySelector(s); };
+var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+var KEY = 'english-a1-progress-v1';
+function loadProg(){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ return {}; } }
+function saveProg(p){ try{ localStorage.setItem(KEY, JSON.stringify(p)); }catch(e){} }
+
+var progress = loadProg();
+var prefs = { auto:true, hide:false, voiceURI:'' };
+var state = { stage:0, idx:0, view:'intro', log:[], lastUser:'' };
+var mainEl = $('#stage');
+
+/* ---------- Speech synthesis (the other person talks) ---------- */
+var synth = window.speechSynthesis || null;
+var voices = [];
+function fillVoices(){
+  if(!synth) return;
+  voices = synth.getVoices().filter(function(v){ return /^en/i.test(v.lang); });
+  var sel = $('#voiceSel');
+  sel.innerHTML = '<option value="">Auto</option>' + voices.map(function(v){
+    return '<option value="'+esc(v.voiceURI)+'">'+esc(v.name)+' ('+esc(v.lang)+')</option>';
+  }).join('');
+  sel.value = prefs.voiceURI;
+}
+function currentVoice(){
+  if(!voices.length) return null;
+  if(prefs.voiceURI){
+    for(var i=0;i<voices.length;i++){ if(voices[i].voiceURI===prefs.voiceURI) return voices[i]; }
+  }
+  var pref = voices.filter(function(v){ return /en[-_](US|GB)/i.test(v.lang); });
+  var pool = pref.length ? pref : voices;
+  return pool[state.stage % pool.length];
+}
+function setWave(on){ var w = $('#wave'); if(w) w.classList.toggle('on', on); }
+function speak(text, rate){
+  if(!synth) return;
+  stopMic();
+  synth.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = rate || 1;
+  var v = currentVoice();
+  if(v){ u.voice = v; u.lang = v.lang; }
+  u.onstart = function(){ setWave(true); };
+  u.onend = function(){ setWave(false); };
+  u.onerror = function(){ setWave(false); };
+  setTimeout(function(){ synth.speak(u); }, 60);
+}
+function stopSpeech(){ if(synth){ synth.cancel(); } setWave(false); }
+
+/* ---------- Speech recognition (you talk) ---------- */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+var rec = null, listening = false, baseText = '';
+var NO_SR = "This browser cannot hear you. Type your answer in the box (Chrome, Edge or Safari work best).";
+function setMicUI(on, msg){
+  var m = $('#mic'), s = $('#micState');
+  if(m){ m.classList.toggle('on', on); m.setAttribute('aria-pressed', on ? 'true':'false'); m.setAttribute('aria-label', on ? 'Stop recording' : 'Start recording'); }
+  if(s && msg) s.textContent = msg;
+}
+function stopMic(){
+  if(rec && listening){ try{ rec.stop(); }catch(e){} }
+  listening = false;
+}
+function toggleMic(){
+  var ta = $('#answer');
+  if(!SR){ setMicUI(false, NO_SR); return; }
+  if(listening){ stopMic(); return; }
+  stopSpeech();
+  rec = new SR();
+  rec.lang = 'en-US';
+  rec.interimResults = true;
+  rec.continuous = false;
+  rec.maxAlternatives = 1;
+  baseText = ta.value.trim();
+  rec.onstart = function(){ listening = true; setMicUI(true, 'I am listening… speak in English.'); };
+  rec.onresult = function(e){
+    var fin = '', interim = '';
+    for(var i=0;i<e.results.length;i++){
+      var r = e.results[i];
+      if(r.isFinal) fin += r[0].transcript + ' '; else interim += r[0].transcript;
+    }
+    ta.value = (baseText + ' ' + fin + interim).replace(/\s+/g,' ').trim();
+  };
+  rec.onerror = function(e){
+    var msg = 'Recording problem. Type your answer or try again.';
+    if(e.error === 'not-allowed' || e.error === 'service-not-allowed') msg = "I cannot use the microphone. Allow it in your browser, or type your answer in the box.";
+    else if(e.error === 'no-speech') msg = "I did not hear anything. Press the microphone and try again.";
+    else if(e.error === 'network') msg = 'The microphone needs internet. Type your answer or try again.';
+    listening = false; setMicUI(false, msg);
+  };
+  rec.onend = function(){ listening = false; setMicUI(false, 'Press the microphone to speak again, or edit the words by hand.'); };
+  try{ rec.start(); }catch(err){ listening = false; setMicUI(false, "The microphone did not start. Try again."); }
+}
+
+/* ---------- Comparison ---------- */
+function words(s){ return s.toLowerCase().replace(/[\u2019]/g,"'").replace(/[^a-z0-9'\s]/g,' ').split(/\s+/).filter(Boolean); }
+function compare(user, model){
+  var us = {}; words(user).forEach(function(w){ us[w] = true; });
+  var hits = 0, total = 0;
+  var html = model.split(/\s+/).map(function(tok){
+    var core = words(tok)[0];
+    if(!core) return esc(tok);
+    total++;
+    if(us[core]){ hits++; return '<mark class="hit">'+esc(tok)+'</mark>'; }
+    return esc(tok);
+  }).join(' ');
+  return { hits:hits, total:total, ratio: total ? hits/total : 0, html:html };
+}
+
+/* ---------- French toggle buttons ---------- */
+function bindTr(btnSel, secSel, cls, name){
+  var b = $(btnSel), sec = $(secSel);
+  if(!b || !sec) return;
+  b.onclick = function(){
+    var on = sec.classList.toggle(cls);
+    b.textContent = (on ? 'Hide ' : 'Show ') + name;
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  };
+}
+function bindFr(btnSel, secSel){ bindTr(btnSel, secSel, 'showfr', 'French'); }
+function bindAr(btnSel, secSel){ bindTr(btnSel, secSel, 'showar', 'Arabic'); }
+function frBtn(id){ return '<button id="'+id+'" class="btn frbtn" type="button" aria-pressed="false">Show French</button>'; }
+function arBtn(id){ return '<button id="'+id+'" class="btn arbtn" type="button" aria-pressed="false">Show Arabic</button>'; }
+
+/* ---------- Rendering ---------- */
+function cur(){ return STAGES[state.stage]; }
+
+function renderList(){
+  $('#stageList').innerHTML = STAGES.map(function(s,i){
+    var p = progress[i] || 0;
+    return '<li><button class="stage-btn" type="button" data-i="'+i+'" aria-current="'+(i===state.stage)+'">'+
+      '<span class="n">'+(i+1)+'</span>'+
+      '<span class="t en" lang="en" dir="ltr">'+esc(s.title)+'</span>'+
+      '<span class="p">'+(p>=10 ? '✓ 10/10' : p+'/10')+'</span></button></li>';
+  }).join('');
+}
+
+function pagerHTML(){
+  var h = '<div class="pager">'+
+    '<button id="prevDialogue" class="btn" type="button"'+(state.stage===0 ? ' disabled' : '')+'>← Previous dialogue</button>';
+  if(state.view === 'turn' || state.view === 'done'){
+    var can = state.view === 'done' || state.idx > 0;
+    h += '<button id="prevExchange" class="btn" type="button"'+(can ? '' : ' disabled')+'>← Previous exchange</button>';
+  }
+  return h + '</div>';
+}
+function bindPager(){
+  var a = $('#prevDialogue'), b = $('#prevExchange');
+  if(a) a.onclick = function(){ if(state.stage > 0) gotoStage(state.stage - 1); };
+  if(b) b.onclick = prevExchange;
+}
+function prevExchange(){
+  stopSpeech(); stopMic();
+  if(state.view === 'done'){ state.view = 'turn'; state.idx = 9; }
+  else if(state.idx > 0){ state.idx--; }
+  else return;
+  state.log.pop();
+  state.lastUser = '';
+  render();
+  window.scrollTo({top:0});
+}
+
+function head(s){
+  return '<header class="stage-head">'+
+    '<p class="count">Dialogue '+(state.stage+1)+' of '+STAGES.length+'</p>'+
+    '<h2 class="en" lang="en" dir="ltr">'+esc(s.title)+'</h2>'+
+    '<p class="goal en" lang="en" dir="ltr">'+esc(s.goal)+'</p>'+
+    '<p class="fr" lang="fr" dir="ltr">'+esc(s.fr)+'</p>'+
+    '<p class="ar" lang="ar" dir="rtl">'+esc(s.goalAr)+'</p>'+
+  '</header>';
+}
+
+function strip(doneCount, nowIdx){
+  var h = '';
+  for(var i=0;i<10;i++){
+    h += '<i class="'+(i<doneCount ? 'done' : (i===nowIdx ? 'now' : ''))+'"></i>';
+  }
+  return '<div class="strip" role="img" aria-label="'+(nowIdx>=0 ? 'Exchange '+(nowIdx+1)+' of 10' : 'All ten exchanges completed')+'">'+h+'</div>';
+}
+
+function logHTML(latestFirst){
+  if(!state.log.length) return '';
+  var s = cur();
+  var items = state.log.map(function(r){
+    return '<li><p class="en" lang="en" dir="ltr"><b>'+esc(s.who.name)+':</b> '+esc(r.p)+'</p>'+
+           '<p class="en you" lang="en" dir="ltr"><b>You:</b> '+(r.u ? esc(r.u) : '—')+'</p></li>';
+  });
+  if(latestFirst) items.reverse();
+  return '<section class="log"><h3>Conversation so far</h3><ol>'+items.join('')+'</ol></section>';
+}
+
+function render(){
+  if(state.view === 'intro') return renderIntro();
+  if(state.view === 'done') return renderDone();
+  renderTurn();
+}
+
+function renderIntro(){
+  var s = cur(), p = progress[state.stage] || 0;
+  mainEl.innerHTML = pagerHTML() + head(s) + strip(0, -1) +
+    '<section class="intro">'+
+      '<div class="who-box"><b class="en" lang="en" dir="ltr">'+esc(s.who.name)+'</b><br><span class="en" lang="en" dir="ltr">'+esc(s.who.role)+'</span></div>'+
+      '<p>'+esc(s.who.name)+' will talk to you. You answer ten times. Each time, you do three easy things:</p>'+
+      '<ol class="how">'+
+        '<li><b>Listen.</b> Press “Listen” and hear the line.</li>'+
+        '<li><b>Learn the words.</b> You see the words for your answer first. Tap a word to hear it. Tap + to add it to your answer.</li>'+
+        '<li><b>Say it.</b> Press the microphone and speak, or type.</li>'+
+      '</ol>'+
+      '<p>French and Arabic are hidden. Press “Show French” or “Show Arabic” when you need help.</p>'+
+      (p ? '<p>You already finished '+p+' of 10 exchanges in this dialogue.</p>' : '')+
+      '<button id="start" class="btn primary big" type="button">Start dialogue</button>'+
+    '</section>';
+  bindPager();
+  $('#start').onclick = function(){ state.view='turn'; state.idx=0; state.log=[]; render(); };
+}
+
+function chipsHTML(list){
+  return list.map(function(w,i){
+    return '<li class="chip">'+
+      '<button type="button" class="hear" data-i="'+i+'" aria-label="Hear: '+esc(w[0])+'">'+
+        '<span class="cw en" lang="en" dir="ltr">'+esc(w[0])+'</span>'+
+        '<span class="cf"><span class="dots" aria-hidden="true">•••</span><span class="frtext" lang="fr" dir="ltr">'+esc(w[1])+'</span><span class="artext" lang="ar" dir="rtl">'+esc(w[2])+'</span></span>'+
+      '</button>'+
+      '<button type="button" class="add" data-i="'+i+'" aria-label="Add to my answer: '+esc(w[0])+'" title="Add to my answer">+</button>'+
+    '</li>';
+  }).join('');
+}
+
+function renderTurn(){
+  var s = cur(), ex = s.ex[state.idx], list = ex[4];
+  mainEl.innerHTML = pagerHTML() + head(s) + strip(state.idx, state.idx) +
+  '<section id="saySec" class="say">'+
+    '<div class="who"><span class="name en" lang="en" dir="ltr">'+esc(s.who.name)+'</span><span class="en" lang="en" dir="ltr">'+esc(s.who.role)+'</span></div>'+
+    '<p id="line" class="line en'+(prefs.hide?' hidden':'')+'" lang="en" dir="ltr">'+esc(ex[0])+'</p>'+
+    '<p class="frtext" lang="fr" dir="ltr">'+esc(ex[1])+'</p>'+
+    '<p class="artext" lang="ar" dir="rtl">'+esc(ex[5])+'</p>'+
+    '<div class="say-actions">'+
+      '<button id="play" class="btn primary" type="button">Listen</button>'+
+      '<button id="slow" class="btn" type="button">Slow</button>'+
+      frBtn('frLine')+arBtn('arLine')+
+      '<span id="wave" class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>'+
+    '</div>'+
+    '<div class="toggles">'+
+      '<label><input type="checkbox" id="hideText"'+(prefs.hide?' checked':'')+'> Hide the text (listening practice)</label>'+
+    '</div>'+
+  '</section>'+
+  '<section id="wordsSec" class="words">'+
+    '<h3>Words for your answer</h3>'+
+    '<p class="sub">Tap a word to hear it. Tap + to add it to your answer.</p>'+
+    '<ul id="chips" class="chips">'+chipsHTML(list)+'</ul>'+
+    '<div class="actions">'+
+      '<button id="hearAll" class="btn" type="button">Hear all the words</button>'+
+      frBtn('frWords')+arBtn('arWords')+
+    '</div>'+
+  '</section>'+
+  '<section class="reply">'+
+    '<h3>Your turn: speak or type</h3>'+
+    '<div class="mic-row">'+
+      '<button id="mic" class="mic" type="button" aria-pressed="false" aria-label="Start recording"'+(SR?'':' disabled')+'>'+
+        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>'+
+      '</button>'+
+      '<p id="micState" class="mic-state">'+(SR ? 'Press the microphone and speak in English, or tap + on the words above.' : esc(NO_SR))+'</p>'+
+    '</div>'+
+    '<label for="answer" class="sr">Your answer</label>'+
+    '<textarea id="answer" lang="en" dir="ltr" class="en" rows="3" placeholder="Your answer will appear here…" spellcheck="false" autocomplete="off"></textarea>'+
+    '<div id="hintBox" class="hint" hidden>'+
+      '<small>Suggested answer. Listen, then say it aloud:</small>'+
+      '<p class="en" lang="en" dir="ltr">'+esc(ex[2])+'</p>'+
+      '<p class="frtext" lang="fr" dir="ltr">'+esc(ex[3])+'</p>'+
+      '<p class="artext" lang="ar" dir="rtl">'+esc(ex[6])+'</p>'+
+      '<div class="actions">'+
+        '<button id="hintPlay" class="btn" type="button">Listen to the suggested answer</button>'+
+        frBtn('frHint')+arBtn('arHint')+
+      '</div>'+
+    '</div>'+
+    '<div id="actionsRow" class="actions">'+
+      '<button id="check" class="btn primary" type="button">Check</button>'+
+      '<button id="hint" class="btn" type="button">Show a suggested answer</button>'+
+      '<button id="clear" class="btn" type="button">Clear</button>'+
+      '<button id="skip" class="btn" type="button">Skip</button>'+
+    '</div>'+
+  '</section>'+
+  '<div id="feedback" aria-live="polite"></div>'+
+  logHTML(true);
+
+  bindPager();
+  bindFr('#frLine', '#saySec');
+  bindFr('#frWords', '#wordsSec');
+  bindFr('#frHint', '#hintBox');
+  bindAr('#arLine', '#saySec');
+  bindAr('#arWords', '#wordsSec');
+  bindAr('#arHint', '#hintBox');
+  $('#play').onclick = function(){ speak(ex[0], 1); };
+  $('#slow').onclick = function(){ speak(ex[0], 0.65); };
+  $('#hideText').onchange = function(e){ prefs.hide = e.target.checked; $('#line').classList.toggle('hidden', prefs.hide); };
+  $('#chips').onclick = function(e){
+    var h = e.target.closest('.hear'), a = e.target.closest('.add');
+    if(h){ speak(list[parseInt(h.getAttribute('data-i'),10)][0], 0.8); }
+    else if(a){
+      var t = list[parseInt(a.getAttribute('data-i'),10)][0], ta = $('#answer');
+      ta.value = (ta.value.trim() + ' ' + t).trim();
+      setMicUI(false, 'Added: “'+t+'”. Add more words, or press the microphone.');
+    }
+  };
+  $('#hearAll').onclick = function(){ speak(list.map(function(w){ return w[0]; }).join('. '), 0.75); };
+  $('#mic').onclick = toggleMic;
+  $('#hint').onclick = function(){ $('#hintBox').hidden = false; };
+  $('#hintPlay').onclick = function(){ speak(ex[2], 0.85); };
+  $('#clear').onclick = function(){ var ta = $('#answer'); ta.value = ''; ta.focus(); };
+  $('#check').onclick = doCheck;
+  $('#skip').onclick = function(){ state.lastUser = ''; showFeedback(null); };
+  if(prefs.auto && synth){ setTimeout(function(){ speak(ex[0], 0.9); }, 250); }
+}
+
+function doCheck(){
+  var ta = $('#answer'), text = ta.value.trim();
+  if(!text){ setMicUI(false, 'Speak or type your answer first, or press “Skip”.'); ta.focus(); return; }
+  stopMic();
+  state.lastUser = text;
+  showFeedback(compare(text, cur().ex[state.idx][2]));
+}
+
+function showFeedback(res){
+  var s = cur(), ex = s.ex[state.idx], cls = '', ttl, sub = '', model;
+  if(res === null){
+    ttl = 'You skipped this one. Listen to the suggested answer, then go on.';
+    model = esc(ex[2]);
+  } else {
+    if(res.ratio >= 0.6){ cls = 'great'; ttl = 'Excellent! Very good!'; }
+    else if(res.ratio >= 0.3){ cls = 'ok'; ttl = 'Good try! Look at the suggested answer and say it again.'; }
+    else { ttl = 'Nice try. This is normal when you learn. Listen and say the suggested answer.'; }
+    sub = 'You said '+res.hits+' of '+res.total+' words from the suggested answer (in green).';
+    model = res.html;
+  }
+  var last = state.idx === 9;
+  $('#feedback').innerHTML =
+    '<div class="fb '+cls+'">'+
+      '<p class="ttl">'+ttl+'</p>'+
+      '<p class="sub">'+sub+'</p>'+
+      '<p class="lbl">Suggested answer</p>'+
+      '<p class="model en" lang="en" dir="ltr">'+model+'</p>'+
+      '<p class="frtext" lang="fr" dir="ltr">'+esc(ex[3])+'</p>'+
+      '<p class="artext" lang="ar" dir="rtl">'+esc(ex[6])+'</p>'+
+      '<div class="actions">'+
+        '<button id="hearModel" class="btn" type="button">Listen to the suggested answer</button>'+
+        frBtn('frModel')+arBtn('arModel')+
+        '<button id="retry" class="btn" type="button">Try again</button>'+
+        '<button id="next" class="btn primary" type="button">'+(last ? 'Finish dialogue' : 'Next exchange')+'</button>'+
+      '</div>'+
+    '</div>';
+  $('#actionsRow').hidden = true;
+  bindFr('#frModel', '#feedback .fb');
+  bindAr('#arModel', '#feedback .fb');
+  $('#hearModel').onclick = function(){ speak(ex[2], 0.85); };
+  $('#retry').onclick = function(){
+    $('#feedback').innerHTML = '';
+    $('#actionsRow').hidden = false;
+    var ta = $('#answer'); ta.value = ''; ta.focus();
+    state.lastUser = '';
+    setMicUI(false, 'Press the microphone and try again.');
+  };
+  $('#next').onclick = next;
+  $('#feedback').scrollIntoView({block:'nearest', behavior:'smooth'});
+}
+
+function next(){
+  stopSpeech(); stopMic();
+  var ex = cur().ex[state.idx];
+  state.log.push({ p:ex[0], u:state.lastUser, m:ex[2] });
+  progress[state.stage] = Math.max(progress[state.stage] || 0, state.idx + 1);
+  saveProg(progress);
+  state.lastUser = '';
+  state.idx++;
+  if(state.idx >= 10){ state.view = 'done'; }
+  render(); renderList();
+  window.scrollTo({top:0});
+}
+
+function renderDone(){
+  var s = cur(), lastStage = state.stage === STAGES.length - 1;
+  mainEl.innerHTML = pagerHTML() + head(s) + strip(10, -1) +
+    '<p class="done-msg">'+(lastStage ? 'That was the last dialogue. Well done!' : 'Well done! You finished this dialogue!')+'</p>'+
+    '<p>Read the conversation again, then repeat the dialogue for more practice'+(lastStage ? '.' : ' or go to the next one.')+'</p>'+
+    '<div class="actions">'+
+      (lastStage ? '' : '<button id="nextStage" class="btn primary" type="button">Next dialogue</button>')+
+      '<button id="again" class="btn" type="button">Repeat this dialogue</button>'+
+    '</div>'+
+    logHTML(false);
+  bindPager();
+  if(!lastStage) $('#nextStage').onclick = function(){ gotoStage(state.stage + 1); };
+  $('#again').onclick = function(){ state.view = 'turn'; state.idx = 0; state.log = []; render(); window.scrollTo({top:0}); };
+}
+
+function gotoStage(i){
+  stopSpeech(); stopMic();
+  state.stage = i; state.idx = 0; state.view = 'intro'; state.log = []; state.lastUser = '';
+  render(); renderList();
+  $('#stageNav').classList.remove('open');
+  $('#menuBtn').setAttribute('aria-expanded', 'false');
+  window.scrollTo({top:0});
+}
+
+/* ---------- Init ---------- */
+$('#stageList').addEventListener('click', function(e){
+  var b = e.target.closest('.stage-btn');
+  if(b) gotoStage(parseInt(b.getAttribute('data-i'), 10));
+});
+$('#menuBtn').onclick = function(){
+  var open = $('#stageNav').classList.toggle('open');
+  this.setAttribute('aria-expanded', open ? 'true' : 'false');
+};
+$('#autoPlay').onchange = function(e){ prefs.auto = e.target.checked; };
+$('#frAll').onchange = function(e){ document.body.classList.toggle('fr-all', e.target.checked); };
+$('#arAll').onchange = function(e){ document.body.classList.toggle('ar-all', e.target.checked); };
+$('#voiceSel').onchange = function(e){ prefs.voiceURI = e.target.value; };
+if(synth){ fillVoices(); synth.onvoiceschanged = fillVoices; }
+else { $('#autoPlay').parentNode.hidden = true; $('#voiceSel').parentNode.hidden = true; }
+renderList();
+render();
+})();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
